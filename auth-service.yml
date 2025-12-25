@@ -11,9 +11,15 @@ spring:
         registration:
           keycloak:
             client-id: auth-service-client
-            client-secret: SECRET_KEY
+            client-secret: CLIENT_SECRET
             authorization-grant-type: password
             scope: openid
         provider:
           keycloak:
             issuer-uri: http://keycloak:8080/realms/gestion-etudiants
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
