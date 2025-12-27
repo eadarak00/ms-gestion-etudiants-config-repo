@@ -12,8 +12,9 @@ spring:
           keycloak:
             client-id: auth-service-client
             client-secret: m5sM1pRaOmbIDPvbJEaX3FPGyo77BgxU
-            authorization-grant-type: password
+            authorization-grant-type: authorization_code
             scope: openid
+            # redirect-uri: http://localhost:7076/login/oauth2/code/keycloak
         provider:
           keycloak:
             issuer-uri: http://keycloak:8080/realms/gestion-etudiants
