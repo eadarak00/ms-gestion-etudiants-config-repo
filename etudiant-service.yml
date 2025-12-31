@@ -37,6 +37,9 @@ resilience4j:
       authService:
         maxAttempts: 3
         waitDuration: 2s
+      scolariteService:
+        maxAttempts: 3
+        waitDuration: 2s
 
 feign:
   client:

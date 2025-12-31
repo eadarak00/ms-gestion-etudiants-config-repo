@@ -29,7 +29,7 @@ resilience4j:
 
   retry:
     instances:
-      authService:
+      etudiantService:
         maxAttempts: 3
         waitDuration: 2s
 
