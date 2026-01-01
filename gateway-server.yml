@@ -24,23 +24,31 @@ spring:
 
       routes:
         - id: auth-service
-          uri: lb://AUTH-SERVICE
+          uri: lb://auth-servive
           predicates:
             - Path=/api/auth/**
+
+            
         - id: etudiant-service
-          uri: lb://ETUDIANT-SERVICE
+          uri: lb://etudiant-service
           predicates:
             - Path=/api/etudiants/**,/api/inscriptions/**
+
+
         - id: scolarite-service
-          uri: lb://SCOLARITE-SERVICE
+          uri: lb://scolarite-service
           predicates:
             - Path=/api/matieres/**,/api/classes/**
+
+
         - id: enseignant-service
-          uri: lb://ENSEIGNANT-SERVICE
+          uri: lb://enseignant-service
           predicates:
             - Path=/api/enseignants/**,/api/affectations/**
+
+
         - id: notes-service
-          uri: lb://NOTES-SERVICE
+          uri: lb://notes-service
           predicates:
             - Path=/api/notes/**,/api/evaluations/**
 
