@@ -4,6 +4,13 @@ server:
 spring:
   application:
     name: gateway-server
+    
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak:8080/realms/gestion-etudiants
+
 
   cloud:
     gateway:
