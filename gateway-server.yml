@@ -4,13 +4,12 @@ server:
 spring:
   application:
     name: gateway-server
-    
+
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: http://keycloak:8080/realms/gestion-etudiants
-
 
   cloud:
     gateway:
@@ -20,10 +19,26 @@ spring:
           lower-case-service-id: true
 
       routes:
+        - id: auth-service
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/api/auth/**
         - id: etudiant-service
           uri: lb://ETUDIANT-SERVICE
           predicates:
-            - Path=/api/students/**
+            - Path=/api/etudiants/**, /api/inscriptions/**
+        - id: scolarite-service
+          uri: lb://SCOLARITE-SERVICE
+          predicates:
+            - Path=/api/matieres/**, /api/classes/**
+        - id: enseignant-service
+          uri: lb://ENSEIGNANT-SERVICE
+          predicates:
+            - Path=/api/enseignants/**, /api/affectations/**
+        - id: notes-service
+          uri: lb://NOTES-SERVICE
+          predicates:
+            - Path=/api/notes/**, /api/evaluations/**
 
 management:
   endpoints:
