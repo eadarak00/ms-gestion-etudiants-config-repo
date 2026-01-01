@@ -15,7 +15,7 @@ keycloak:
   server-url: http://keycloak:8080
   realm: gestion-etudiants
   client-id: auth-service-client
-  client-secret: m5sM1pRaOmbIDPvbJEaX3FPGyo77BgxU
+  client-secret: jA6bJQYgypyen5V3celA5b39QewUy3gd
 
 management:
   endpoints:
