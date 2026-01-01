@@ -5,6 +5,12 @@ spring:
   application:
     name: etudiant-service
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak:8080/realms/gestion-etudiants
+
   datasource:
     url: jdbc:mariadb://localhost:3306/etudiant_db?createDatabaseIfNotExist=true
     username: etudiant
