@@ -52,6 +52,17 @@ spring:
           predicates:
             - Path=/api/notes/**,/api/evaluations/**
 
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods: "*"
+
+      httpclient:
+        connect-timeout: 5000
+        response-timeout: 10s
+
 management:
   endpoints:
     web:
