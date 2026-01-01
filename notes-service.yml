@@ -6,9 +6,9 @@ spring:
     name: notes-service
 
   datasource:
-    url: jdbc:mariadb://localhost:3306/note_db?createDatabaseIfNotExist=true
-    username: note
-    password: note
+    url: jdbc:mariadb://localhost:3306/notes_db?createDatabaseIfNotExist=true
+    username: notes
+    password: notes
     driver-class-name: org.mariadb.jdbc.Driver
 
   jpa:
