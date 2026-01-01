@@ -6,7 +6,7 @@ spring:
     name: gateway-server
 
   main:
-    web-application-type: reactive   # obligatoire pour Spring Cloud Gateway
+    web-application-type: reactive  
 
   security:
     oauth2:
@@ -18,27 +18,29 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: false   # désactivé car on utilise des routes manuelles
+          enabled: true
+          lower-case-service-id: true
+          refresh-rate: 5000
 
       routes:
         - id: auth-service
-          uri: lb://auth-service   # minuscule obligatoire
+          uri: lb://AUTH-SERVICE
           predicates:
             - Path=/api/auth/**
         - id: etudiant-service
-          uri: lb://etudiant-service
+          uri: lb://ETUDIANT-SERVICE
           predicates:
             - Path=/api/etudiants/**,/api/inscriptions/**
         - id: scolarite-service
-          uri: lb://scolarite-service
+          uri: lb://SCOLARITE-SERVICE
           predicates:
             - Path=/api/matieres/**,/api/classes/**
         - id: enseignant-service
-          uri: lb://enseignant-service
+          uri: lb://ENSEIGNANT-SERVICE
           predicates:
             - Path=/api/enseignants/**,/api/affectations/**
         - id: notes-service
-          uri: lb://notes-service
+          uri: lb://NOTES-SERVICE
           predicates:
             - Path=/api/notes/**,/api/evaluations/**
 
