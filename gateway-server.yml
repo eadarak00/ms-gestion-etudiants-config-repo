@@ -24,7 +24,7 @@ spring:
 
       routes:
         - id: auth-service
-          uri: lb://auth-servive
+          uri: lb://auth-service
           predicates:
             - Path=/api/auth/**
 
@@ -38,6 +38,7 @@ spring:
           uri: lb://scolarite-service
           predicates:
             - Path=/api/matieres/**,/api/classes/**,/api/classe-matieres/**
+
 
 
         - id: enseignant-service
