@@ -34,11 +34,10 @@ spring:
           predicates:
             - Path=/api/etudiants/**,/api/inscriptions/**
 
-
         - id: scolarite-service
           uri: lb://scolarite-service
           predicates:
-            - Path=/api/matieres/**,/api/classes/**, /api/classe-matieres/**, /api/classe-matieres/classe/**
+            - Path=/api/matieres/**,/api/classes/**,/api/classe-matieres/**
 
 
         - id: enseignant-service
