@@ -16,66 +16,90 @@ spring:
 
   cloud:
     gateway:
+
+      # ✅ EUREKA OBLIGATOIRE POUR lb://
       discovery:
         locator:
-          enabled: false
+          enabled: true
+          lower-case-service-id: true
 
       routes:
+
+        # ======================
+        # AUTH SERVICE
+        # ======================
         - id: auth-service
           uri: lb://auth-service
           predicates:
             - Path=/api/auth/**
 
+        # ======================
+        # ETUDIANT SERVICE
+        # ======================
         - id: etudiant-service
           uri: lb://etudiant-service
           predicates:
             - Path=/api/etudiants/**,/api/inscriptions/**
 
+        # ======================
+        # SCOLARITE SERVICE
+        # ======================
         - id: scolarite-service
           uri: lb://scolarite-service
           predicates:
             - Path=/api/matieres/**,/api/classes/**,/api/classe-matieres/**
 
+        # ======================
+        # ENSEIGNANT SERVICE
+        # ======================
         - id: enseignant-service
           uri: lb://enseignant-service
           predicates:
             - Path=/api/enseignants/**,/api/affectations/**
 
+        # ======================
+        # NOTES SERVICE
+        # ======================
         - id: notes-service
           uri: lb://notes-service
           predicates:
             - Path=/api/notes/**,/api/evaluations/**
 
+      # ======================
+      # CORS GLOBAL
+      # ======================
       globalcors:
         cors-configurations:
           '[/**]':
             allowed-origins: "*"
-            allowed-methods: "*"
             allowed-headers: "*"
+            allowed-methods: "*"
 
+      # ======================
+      # HTTP CLIENT
+      # ======================
       httpclient:
         connect-timeout: 5000
         response-timeout: 10s
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://eureka-server:8761/eureka
-
+# ======================
+# ACTUATOR
+# ======================
 management:
   endpoint:
     gateway:
       enabled: true
     health:
       show-details: always
-
   endpoints:
     web:
       exposure:
         include: health,info,gateway
 
-
+# ======================
+# LOGS DEBUG (IMPORTANT)
+# ======================
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG
-    org.springframework.cloud.gateway.route: DEBUG
+    org.springframework.cloud.loadbalancer: DEBUG
