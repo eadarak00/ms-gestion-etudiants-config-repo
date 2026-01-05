@@ -63,10 +63,17 @@ eureka:
       defaultZone: http://eureka-server:8761/eureka
 
 management:
+  endpoint:
+    gateway:
+      enabled: true
+    health:
+      show-details: always
+
   endpoints:
     web:
       exposure:
         include: health,info,gateway
+
 
 logging:
   level:
