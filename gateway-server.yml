@@ -71,102 +71,6 @@
 
 
 
-# server:
-#   port: 7070
-
-# spring:
-#   application:
-#     name: gateway-server
-
-#   main:
-#     web-application-type: reactive
-
-#   security:
-#     oauth2:
-#       resourceserver:
-#         jwt:
-#           issuer-uri: http://keycloak:8080/realms/gestion-etudiants
-
-#   cloud:
-#     gateway:
-
-#       # ❌ Désactivé pour éviter les conflits
-#       discovery:
-#         locator:
-#           enabled: false
-
-#       routes:
-#         # =========================
-#         # AUTH SERVICE
-#         # =========================
-#         - id: auth-service
-#           uri: lb://auth-service
-#           predicates:
-#             - Path=/api/auth/**
-
-#         # =========================
-#         # ETUDIANT SERVICE
-#         # =========================
-#         - id: etudiant-service
-#           uri: lb://etudiant-service
-#           predicates:
-#             - Path=/api/etudiants/**,/api/inscriptions/**
-
-#         # =========================
-#         # SCOLARITÉ SERVICE
-#         # =========================
-#         - id: scolarite-service
-#           uri: lb://scolarite-service
-#           predicates:
-#             - Path=/api/matieres/**,/api/classes/**,/api/classe-matieres/**
-
-#         # =========================
-#         # ENSEIGNANT SERVICE
-#         # =========================
-#         - id: enseignant-service
-#           uri: lb://enseignant-service
-#           predicates:
-#             - Path=/api/enseignants/**,/api/affectations/**
-
-#         # =========================
-#         # NOTES SERVICE
-#         # =========================
-#         - id: notes-service
-#           uri: lb://notes-service
-#           predicates:
-#             - Path=/api/notes/**,/api/evaluations/**
-
-#       # =========================
-#       # CORS GLOBAL
-#       # =========================
-#       globalcors:
-#         cors-configurations:
-#           '[/**]':
-#             allowed-origins: "*"
-#             allowed-headers: "*"
-#             allowed-methods:
-#               - GET
-#               - POST
-#               - PUT
-#               - DELETE
-#               - OPTIONS
-
-#       # =========================
-#       # HTTP CLIENT
-#       # =========================
-#       httpclient:
-#         connect-timeout: 5000
-#         response-timeout: 10s
-
-# # =========================
-# # ACTUATOR
-# # =========================
-# management:
-#   endpoints:
-#     web:
-#       exposure:
-#         include: health,info,gateway
-
 server:
   port: 7070
 
@@ -203,59 +107,34 @@ spring:
         # =========================
         # ETUDIANT SERVICE
         # =========================
-        - id: etudiant-service-etudiants
+        - id: etudiant-service
           uri: lb://etudiant-service
           predicates:
-            - Path=/api/etudiants/**
-            
-        - id: etudiant-service-inscriptions
-          uri: lb://etudiant-service
-          predicates:
-            - Path=/api/inscriptions/**
+            - Path=/api/etudiants/**,/api/inscriptions/**
 
         # =========================
         # SCOLARITÉ SERVICE
         # =========================
-        - id: scolarite-service-matieres
+        - id: scolarite-service
           uri: lb://scolarite-service
           predicates:
-            - Path=/api/matieres/**
-            
-        - id: scolarite-service-classes
-          uri: lb://scolarite-service
-          predicates:
-            - Path=/api/classes/**
-            
-        - id: scolarite-service-classe-matieres
-          uri: lb://scolarite-service
-          predicates:
-            - Path=/api/classe-matieres/**
+            - Path=/api/matieres/**,/api/classes/**,/api/classe-matieres/**
 
         # =========================
         # ENSEIGNANT SERVICE
         # =========================
-        - id: enseignant-service-enseignants
+        - id: enseignant-service
           uri: lb://enseignant-service
           predicates:
-            - Path=/api/enseignants/**
-            
-        - id: enseignant-service-affectations
-          uri: lb://enseignant-service
-          predicates:
-            - Path=/api/affectations/**
+            - Path=/api/enseignants/**,/api/affectations/**
 
         # =========================
         # NOTES SERVICE
         # =========================
-        - id: notes-service-notes
+        - id: notes-service
           uri: lb://notes-service
           predicates:
-            - Path=/api/notes/**
-            
-        - id: notes-service-evaluations
-          uri: lb://notes-service
-          predicates:
-            - Path=/api/evaluations/**
+            - Path=/api/notes/**,/api/evaluations/**
 
       # =========================
       # CORS GLOBAL
