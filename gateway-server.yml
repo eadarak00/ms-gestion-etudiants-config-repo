@@ -50,15 +50,25 @@ spring:
         cors-configurations:
           '[/**]':
             allowed-origins: "*"
-            allowed-headers: "*"
             allowed-methods: "*"
+            allowed-headers: "*"
 
       httpclient:
         connect-timeout: 5000
         response-timeout: 10s
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka
 
 management:
   endpoints:
     web:
       exposure:
         include: health,info,gateway
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.cloud.gateway.route: DEBUG
