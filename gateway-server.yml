@@ -1,3 +1,76 @@
+# # server:
+# #   port: 7070
+
+# # spring:
+# #   application:
+# #     name: gateway-server
+
+# #   main:
+# #     web-application-type: reactive  
+
+# #   security:
+# #     oauth2:
+# #       resourceserver:
+# #         jwt:
+# #           issuer-uri: http://keycloak:8080/realms/gestion-etudiants
+
+# #   cloud:
+# #     gateway:
+# #       discovery:
+# #         locator:
+# #           enabled: true
+# #           lower-case-service-id: true
+# #           refresh-rate: 5000
+
+# #       routes:
+# #         - id: auth-service
+# #           uri: lb://auth-service
+# #           predicates:
+# #             - Path=/api/auth/**
+
+            
+# #         - id: etudiant-service
+# #           uri: lb://etudiant-service
+# #           predicates:
+# #             - Path=/api/etudiants/**,/api/inscriptions/**
+
+# #         - id: scolarite-service
+# #           uri: lb://scolarite-service
+# #           predicates:
+# #             - Path=/api/matieres/**,/api/classes/**,/api/classe-matieres/**
+
+
+
+# #         - id: enseignant-service
+# #           uri: lb://enseignant-service
+# #           predicates:
+# #             - Path=/api/enseignants/**,/api/affectations/**
+
+
+# #         - id: notes-service
+# #           uri: lb://notes-service
+# #           predicates:
+# #             - Path=/api/notes/**,/api/evaluations/**
+
+# #       globalcors:
+# #         cors-configurations:
+# #           '[/**]':
+# #             allowedOrigins: "*"
+# #             allowedHeaders: "*"
+# #             allowedMethods: "*"
+
+# #       httpclient:
+# #         connect-timeout: 5000
+# #         response-timeout: 10s
+
+# # management:
+# #   endpoints:
+# #     web:
+# #       exposure:
+# #         include: health,info,gateway
+
+
+
 # server:
 #   port: 7070
 
@@ -6,7 +79,7 @@
 #     name: gateway-server
 
 #   main:
-#     web-application-type: reactive  
+#     web-application-type: reactive
 
 #   security:
 #     oauth2:
@@ -16,60 +89,83 @@
 
 #   cloud:
 #     gateway:
+
+#       # ❌ Désactivé pour éviter les conflits
 #       discovery:
 #         locator:
-#           enabled: true
-#           lower-case-service-id: true
-#           refresh-rate: 5000
+#           enabled: false
 
 #       routes:
+#         # =========================
+#         # AUTH SERVICE
+#         # =========================
 #         - id: auth-service
 #           uri: lb://auth-service
 #           predicates:
 #             - Path=/api/auth/**
 
-            
+#         # =========================
+#         # ETUDIANT SERVICE
+#         # =========================
 #         - id: etudiant-service
 #           uri: lb://etudiant-service
 #           predicates:
 #             - Path=/api/etudiants/**,/api/inscriptions/**
 
+#         # =========================
+#         # SCOLARITÉ SERVICE
+#         # =========================
 #         - id: scolarite-service
 #           uri: lb://scolarite-service
 #           predicates:
 #             - Path=/api/matieres/**,/api/classes/**,/api/classe-matieres/**
 
-
-
+#         # =========================
+#         # ENSEIGNANT SERVICE
+#         # =========================
 #         - id: enseignant-service
 #           uri: lb://enseignant-service
 #           predicates:
 #             - Path=/api/enseignants/**,/api/affectations/**
 
-
+#         # =========================
+#         # NOTES SERVICE
+#         # =========================
 #         - id: notes-service
 #           uri: lb://notes-service
 #           predicates:
 #             - Path=/api/notes/**,/api/evaluations/**
 
+#       # =========================
+#       # CORS GLOBAL
+#       # =========================
 #       globalcors:
 #         cors-configurations:
 #           '[/**]':
-#             allowedOrigins: "*"
-#             allowedHeaders: "*"
-#             allowedMethods: "*"
+#             allowed-origins: "*"
+#             allowed-headers: "*"
+#             allowed-methods:
+#               - GET
+#               - POST
+#               - PUT
+#               - DELETE
+#               - OPTIONS
 
+#       # =========================
+#       # HTTP CLIENT
+#       # =========================
 #       httpclient:
 #         connect-timeout: 5000
 #         response-timeout: 10s
 
+# # =========================
+# # ACTUATOR
+# # =========================
 # management:
 #   endpoints:
 #     web:
 #       exposure:
 #         include: health,info,gateway
-
-
 
 server:
   port: 7070
@@ -107,34 +203,59 @@ spring:
         # =========================
         # ETUDIANT SERVICE
         # =========================
-        - id: etudiant-service
+        - id: etudiant-service-etudiants
           uri: lb://etudiant-service
           predicates:
-            - Path=/api/etudiants/**,/api/inscriptions/**
+            - Path=/api/etudiants/**
+            
+        - id: etudiant-service-inscriptions
+          uri: lb://etudiant-service
+          predicates:
+            - Path=/api/inscriptions/**
 
         # =========================
         # SCOLARITÉ SERVICE
         # =========================
-        - id: scolarite-service
+        - id: scolarite-service-matieres
           uri: lb://scolarite-service
           predicates:
-            - Path=/api/matieres/**,/api/classes/**,/api/classe-matieres/**
+            - Path=/api/matieres/**
+            
+        - id: scolarite-service-classes
+          uri: lb://scolarite-service
+          predicates:
+            - Path=/api/classes/**
+            
+        - id: scolarite-service-classe-matieres
+          uri: lb://scolarite-service
+          predicates:
+            - Path=/api/classe-matieres/**
 
         # =========================
         # ENSEIGNANT SERVICE
         # =========================
-        - id: enseignant-service
+        - id: enseignant-service-enseignants
           uri: lb://enseignant-service
           predicates:
-            - Path=/api/enseignants/**,/api/affectations/**
+            - Path=/api/enseignants/**
+            
+        - id: enseignant-service-affectations
+          uri: lb://enseignant-service
+          predicates:
+            - Path=/api/affectations/**
 
         # =========================
         # NOTES SERVICE
         # =========================
-        - id: notes-service
+        - id: notes-service-notes
           uri: lb://notes-service
           predicates:
-            - Path=/api/notes/**,/api/evaluations/**
+            - Path=/api/notes/**
+            
+        - id: notes-service-evaluations
+          uri: lb://notes-service
+          predicates:
+            - Path=/api/evaluations/**
 
       # =========================
       # CORS GLOBAL
